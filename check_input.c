@@ -6,22 +6,32 @@
 /*   By: jinxu <jinxu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 17:51:48 by jinxu             #+#    #+#             */
-/*   Updated: 2025/07/05 13:27:37 by jinxu            ###   ########.fr       */
+/*   Updated: 2025/07/05 23:41:51 by jinxu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	check_duplicate(char **s, int i)
+static int	check_duplicate(char **s, int size)
 {
-	int	j;
+	int		i;
+	int		j;
+	long	a;
+	long	b;
 
-	j = 0;
-	while (j < i)
+	i = 0;
+	while (i < size)
 	{
-		if (ft_strncmp(s[i], s[j], 11) == 0)
-			return (1);
-		j++;
+		a = ft_atol(s[i]);
+		j = 0;
+		while (j < i)
+		{
+			b = ft_atol(s[j]);
+			if (a == b)
+				return (1);
+			j++;
+		}
+		i++;
 	}
 	return (0);
 }
@@ -54,10 +64,10 @@ int	check_input(char **tmp, int size)
 		val = ft_atol(tmp[i]);
 		if (val > INT_MAX || val < INT_MIN)
 			return (3);
-		if (check_duplicate(tmp, i))
-			return (4);
 		i++;
 	}
+	if (check_duplicate(tmp, size))
+		return (4);
 	return (0);
 }
 
